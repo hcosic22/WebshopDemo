@@ -18,6 +18,7 @@ namespace WebshopDemo.Areas.Admin.Controllers
                 _context = context;
         }
 
+        [Route("Admin/Product/Index")]
         public async Task<IActionResult> Index()
         {
             var products = await _context.Product.ToListAsync();
@@ -25,6 +26,7 @@ namespace WebshopDemo.Areas.Admin.Controllers
             return View(products);
         }
 
+        [Route("Admin/Product/Details")]
         public async Task<IActionResult> Details(int id)
         {
             var product = await _context.Product.FirstOrDefaultAsync(o => o.Id == id);
@@ -37,11 +39,13 @@ namespace WebshopDemo.Areas.Admin.Controllers
             return View(product);
         }
 
+        [Route("Admin/Product/Create")]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Route("Admin/Product/Create/{product}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,Quantity,Price")] Product product)
@@ -55,6 +59,7 @@ namespace WebshopDemo.Areas.Admin.Controllers
             return View(product);
         }
 
+        [Route("Admin/Product/Edit/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
             var product = await _context.Product.FindAsync(id);
@@ -66,6 +71,7 @@ namespace WebshopDemo.Areas.Admin.Controllers
             return View(product);
         }
 
+        [Route("Admin/Product/Edit/{id}/{product}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Quantity,Price")] Product product)
@@ -98,6 +104,7 @@ namespace WebshopDemo.Areas.Admin.Controllers
             return View(product);
         }
 
+        [Route("Admin/Product/Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var product = await _context.Product.FirstOrDefaultAsync(o => o.Id == id);
@@ -110,7 +117,8 @@ namespace WebshopDemo.Areas.Admin.Controllers
             return View(product);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [Route("Admin/Product/DeleteConfirmed/{id}")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

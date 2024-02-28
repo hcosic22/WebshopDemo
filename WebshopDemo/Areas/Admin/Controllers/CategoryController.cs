@@ -18,6 +18,7 @@ namespace WebshopDemo.Areas.Admin.Controllers
                 _context = context;
         }
 
+        [Route("Admin/Category/Index")]
         public async Task<IActionResult> Index()
         {
             var categories = await _context.Category.ToListAsync();
@@ -25,6 +26,7 @@ namespace WebshopDemo.Areas.Admin.Controllers
             return View(categories);
         }
 
+        [Route("Admin/Category/Details/{id}")]
         public async Task<IActionResult> Details(int id)
         {
             var category = await _context.Category.FirstOrDefaultAsync(c => c.Id == id);
@@ -37,11 +39,13 @@ namespace WebshopDemo.Areas.Admin.Controllers
             return View(category);
         }
 
+        [Route("Admin/Category/Create")]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Route("Admin/Category/Create/{category}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
@@ -56,6 +60,7 @@ namespace WebshopDemo.Areas.Admin.Controllers
             return View(category);
         }
 
+        [Route("Admin/Category/Edit/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
             var category = await _context.Category.FindAsync(id);
@@ -68,6 +73,7 @@ namespace WebshopDemo.Areas.Admin.Controllers
             return View(category);
         }
 
+        [Route("Admin/Category/Edit/{id}/{category}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Category category) 
@@ -100,6 +106,7 @@ namespace WebshopDemo.Areas.Admin.Controllers
             return View(category);
         }
 
+        [Route("Admin/Category/Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var category = await _context.Category.FirstOrDefaultAsync(c => c.Id == id);
@@ -111,7 +118,8 @@ namespace WebshopDemo.Areas.Admin.Controllers
             return View(category);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [Route("Admin/Category/DeleteConfirmed/{id}")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
