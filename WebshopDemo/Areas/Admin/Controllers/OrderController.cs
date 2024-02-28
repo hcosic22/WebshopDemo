@@ -19,7 +19,8 @@ namespace WebshopDemo.Areas.Admin.Controllers
         {
             _context = context;
         }
-        
+
+        [Route("Admin/Order/Index")]
         public async Task<IActionResult> Index()
         {
             var orders = await _context.Order.ToListAsync();
@@ -27,6 +28,7 @@ namespace WebshopDemo.Areas.Admin.Controllers
             return View(orders);
         }
 
+        [Route("Admin/Order/Details/{id}")]
         public async Task<IActionResult> Details(int id)
         {
             var order = await _context.Order.FirstOrDefaultAsync(o => o.Id == id);
@@ -43,6 +45,7 @@ namespace WebshopDemo.Areas.Admin.Controllers
             return View(order);
         }
 
+        [Route("Admin/Order/Create")]
         public async Task<IActionResult> Create() 
         {
             ViewBag.Users = await _context.Users.Select(user =>
@@ -56,6 +59,7 @@ namespace WebshopDemo.Areas.Admin.Controllers
             return View();
         }
 
+        [Route("Admin/Order/Create/{order}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,DateCreated,Total,UserId")] Order order)
@@ -69,6 +73,7 @@ namespace WebshopDemo.Areas.Admin.Controllers
             return View(order);
         }
 
+        [Route("Admin/Order/Create/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
             var order = await _context.Order.FindAsync(id);
@@ -80,6 +85,7 @@ namespace WebshopDemo.Areas.Admin.Controllers
             return View(order);
         }
 
+        [Route("Admin/Order/Edit/{id}/{order}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,DateCreated,Total,UserId")] Order order)
@@ -112,6 +118,7 @@ namespace WebshopDemo.Areas.Admin.Controllers
             return View(order);
         }
 
+        [Route("Admin/Order/Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var order = await _context.Order.FirstOrDefaultAsync(o => o.Id == id);
@@ -124,7 +131,8 @@ namespace WebshopDemo.Areas.Admin.Controllers
             return View(order);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [Route("Admin/Order/DeleteConfirmed/{id}")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

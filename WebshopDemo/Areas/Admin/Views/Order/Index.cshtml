@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Webshop.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillingFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillingLastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillingEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillingPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillingAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillingCountry)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillingZipCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillingFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillingLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillingEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillingPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillingAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillingCountry)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillingZipCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
