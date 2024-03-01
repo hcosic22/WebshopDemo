@@ -11,6 +11,6 @@ namespace Webshop.Models
         public string Name { get; set; }
 
         [ForeignKey("CategoryId")]
-        public virtual ICollection<ProductCategory> ProductCategories { get; set; }
+        public virtual ICollection<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();
     }
 }

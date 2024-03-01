@@ -174,7 +174,7 @@ namespace WebshopDemo.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("Webshop.Models.Order", b =>
@@ -238,7 +238,7 @@ namespace WebshopDemo.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Order");
+                    b.ToTable("Order", (string)null);
                 });
 
             modelBuilder.Entity("Webshop.Models.Product", b =>
@@ -265,7 +265,7 @@ namespace WebshopDemo.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Product");
+                    b.ToTable("Product", (string)null);
                 });
 
             modelBuilder.Entity("Webshop.Models.ProductCategory", b =>
@@ -288,7 +288,7 @@ namespace WebshopDemo.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductCategory");
+                    b.ToTable("ProductCategory", (string)null);
                 });
 
             modelBuilder.Entity("WebshopDemo.Models.ApplicationUser", b =>
@@ -400,7 +400,7 @@ namespace WebshopDemo.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderProduct");
+                    b.ToTable("OrderProduct", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

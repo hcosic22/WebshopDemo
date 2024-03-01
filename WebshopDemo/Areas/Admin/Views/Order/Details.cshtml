@@ -71,6 +71,7 @@
             @Html.DisplayFor(model => model.Message)
         </dd>
     </dl>
+    <partial name="_OrderProductsPartial" for="@Model.OrderProducts" />
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |

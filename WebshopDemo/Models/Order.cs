@@ -50,6 +50,6 @@ namespace Webshop.Models
         public string UserId { get; set; }
 
         [ForeignKey("OrderId")]
-        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
+        public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
     }
 }
