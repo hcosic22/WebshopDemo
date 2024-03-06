@@ -1,4 +1,4 @@
-﻿using Webshop.Models;
+﻿using WebshopDemo.Models;
 
 namespace WebshopDemo.Extensions
 {

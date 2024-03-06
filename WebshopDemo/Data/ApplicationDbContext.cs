@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using Webshop.Models;
+using WebshopDemo.Models;
 using WebshopDemo.Models;
 
 namespace WebshopDemo.Data

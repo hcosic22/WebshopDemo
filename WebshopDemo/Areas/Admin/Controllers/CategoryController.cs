@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Permissions;
-using Webshop.Models;
+using WebshopDemo.Models;
 using WebshopDemo.Data;
 
 namespace WebshopDemo.Areas.Admin.Controllers

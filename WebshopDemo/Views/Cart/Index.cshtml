@@ -1,0 +1,57 @@
+﻿@using WebshopDemo.Extensions
+@model List<CartItem>
+@{
+    ViewData["Title"] = "Cart";
+}
+
+@if (Model.Count == 0)
+{
+    <div class="text-center">
+        <h1 class="display-4">Your cart is empty!</h1>
+        <hr />
+        <a asp-controller="Home" asp-action="Product">Continue shopping</a>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Cart items</h1>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a class="btn btn-sm btn-danger" asp-action="RemoveFromCart" asp-route-productId="@item.Product.Id">Remove</a>
+                    </td>
+                    <td>@item.Product.Name</td>
+                    <td>@item.Product.Price.ToString("0.00")€</td>
+                    <td>@item.Product.Quantity</td>
+                    <td>@item.GetTotal().ToString("0.00")€</td>
+                </tr>
+            }
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td> <b>Total price: @ViewBag.TotalPrice.ToString("0.00")€</b> </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary btn-lg float-left" asp-controller="Home" asp-action="Product">Continue shopping</a>
+
+    <a class="btn btn-success btn-lg float-right" asp-controller="Home" asp-action="Order">Order products</a>
+}

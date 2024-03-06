@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System.ComponentModel;
-using Webshop.Models;
+using WebshopDemo.Models;
 using WebshopDemo.Data;
 
 namespace WebshopDemo.Areas.Admin.Controllers
@@ -45,15 +45,12 @@ namespace WebshopDemo.Areas.Admin.Controllers
 
         public async Task<IActionResult> Create() 
         {
-            ViewBag.Users = await _context.Users.Select(user =>
-                new SelectListItem
-                {
-                    Value = user.Id.ToString(),
-                    Text = user.FirstName + " " + user.LastName
-                }
-            ).ToListAsync();
+            Order order = new Order();
+            order.DateCreated = DateTime.Now;
 
-            return View();
+            order.Users = await GetAllUsers();
+
+            return View(order);
         }
 
         [HttpPost]
@@ -71,13 +68,7 @@ namespace WebshopDemo.Areas.Admin.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            ViewBag.Users = await _context.Users.Select(user =>
-                new SelectListItem
-                {
-                    Value = user.Id.ToString(),
-                    Text = user.FirstName + " " + user.LastName
-                }
-            ).ToListAsync();
+            ViewBag.Users = await GetAllUsers();
 
             var order = await _context.Order.FindAsync(id);
             if (order == null) 
@@ -140,6 +131,17 @@ namespace WebshopDemo.Areas.Admin.Controllers
             _context.Order.Remove(order);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private async Task<List<SelectListItem>> GetAllUsers()
+        {
+           return await _context.Users.Select(user =>
+                new SelectListItem
+                {
+                    Value = user.Id.ToString(),
+                    Text = user.FirstName + " " + user.LastName
+                }
+            ).ToListAsync();
         }
     }
 }

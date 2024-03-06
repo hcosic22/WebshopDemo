@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
-using Webshop.Models;
+using WebshopDemo.Models;
 using WebshopDemo.Data;
 using WebshopDemo.Extensions;
 using WebshopDemo.Models;

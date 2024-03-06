@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Webshop.Models;
+using WebshopDemo.Models;
 using WebshopDemo.Data;
 
 namespace WebshopDemo.Areas.Admin.Controllers

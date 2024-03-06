@@ -39,13 +39,29 @@ namespace WebshopDemo.Controllers
                 CartItem cartItem = new CartItem
                 {
                     Product = _context.Product.Find(productId),
-                    Quantity = 1,
+                    Quantity = 1
                 };
 
                 cart.Add(cartItem);
             }
 
             HttpContext.Session.SetObjectAsJson(SessionKeyName, cart);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult RemoveFromCart(int productId) 
+        {
+            List<CartItem> cart = HttpContext.Session.GetObjectFromJson<List<CartItem>>(SessionKeyName) ?? new List<CartItem>();
+
+            var cartItem = cart.FirstOrDefault(p => p.Product.Id == productId);
+
+            if (cartItem != null)
+            {
+                cart.Remove(cartItem);
+
+                HttpContext.Session.SetObjectAsJson(SessionKeyName, cart);
+            }
 
             return RedirectToAction(nameof(Index));
         }

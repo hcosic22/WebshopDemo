@@ -1,0 +1,26 @@
+﻿@using WebshopDemo.Models
+@model List<Product>
+@{
+    ViewBag.Title = "Products";
+}
+
+<h3>Products</h3>
+
+<div class="row mb-5">
+    <div class="col-2">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Filter by category
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                @foreach (var item in ViewBag.Categories)
+                {
+                    <a class="dropdown-item" asp-action="Product" asp-route-categoryId="@item.Value">@item.Text</a>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-2">
+        <a asp-action="Product" class="btn btn-warning">Reset filters</a>
+    </div>
+</div>

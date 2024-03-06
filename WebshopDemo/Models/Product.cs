@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using WebshopDemo.Models;
 
-namespace Webshop.Models
+namespace WebshopDemo.Models
 {
     public class Product
     {
