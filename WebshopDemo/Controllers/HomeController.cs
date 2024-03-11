@@ -35,9 +35,17 @@ namespace WebshopDemo.Controllers
 
         public async Task<IActionResult> Product(int? categoryId)
         {
-            var productIds = await _context.ProductCategory.Where(p => p.Id == categoryId).Select(p => p.ProductId).ToListAsync();
+            var products = await _context.Product.ToListAsync();
 
-            var products = await _context.Product.Where(p => productIds.Contains(p.Id)).ToListAsync();
+            if (categoryId != null) 
+            {
+                var productIds = await _context.ProductCategory
+                    .Where(p => p.Id == categoryId)
+                    .Select(p => p.ProductId)
+                    .ToListAsync();
+
+                products = products.Where(p => productIds.Contains(p.Id)).ToList();
+            }
 
             ViewBag.Categories = await _context.Category.Select(c => 
                 new SelectListItem 
