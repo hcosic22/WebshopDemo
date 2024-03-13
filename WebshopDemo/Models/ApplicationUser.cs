@@ -7,13 +7,13 @@ namespace WebshopDemo.Models
     public class ApplicationUser : IdentityUser
     {
         [StringLength(50)]
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
 
         [StringLength(50)]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
 
         [StringLength(150)]
-        public string Address { get; set; }
+        public string? Address { get; set; }
 
         [ForeignKey("UserId")]
         public virtual ICollection<Order> Orders { get; set; }

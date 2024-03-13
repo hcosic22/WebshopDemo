@@ -37,27 +37,49 @@ namespace WebshopDemo.Areas.Admin.Controllers
             return View(product);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.Categories = await _context.Category.Select(category =>
+                new SelectListItem
+                { 
+                    Value = category.Id.ToString(),
+                    Text = category.Name
+                }
+                ).ToListAsync();
+
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Quantity,Price")] Product product)
+        public async Task<IActionResult> Create(Product product)
         {
             if (ModelState.IsValid)
             {
+                foreach (var categoryId in product.Categories)
+                {
+                    var productCategory = new ProductCategory
+                    {
+                        CategoryId = categoryId
+                    };
+
+                    product.ProductCategories.Add(productCategory); 
+                }
+
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(product);
         }
 
         public async Task<IActionResult> Edit(int id)
         {
-            var product = await _context.Product.FindAsync(id);
+            var product = await _context.Product
+                .Include(p => p.ProductCategories)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
             if (product == null)
             {
                 return NotFound();

@@ -5,7 +5,9 @@ using System.Diagnostics;
 using WebshopDemo.Models;
 using WebshopDemo.Data;
 using WebshopDemo.Extensions;
-using WebshopDemo.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace WebshopDemo.Controllers
 {
@@ -24,7 +26,7 @@ namespace WebshopDemo.Controllers
         }
 
         public IActionResult Index(string message)
-        {
+        {     
             return View(message);
         }
 

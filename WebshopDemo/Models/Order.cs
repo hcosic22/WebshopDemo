@@ -45,7 +45,7 @@ namespace WebshopDemo.Models
         [StringLength(20)]
         public string BillingZipCode { get; set; }
 
-        public string Message { get; set; }
+        public string? Message { get; set; }
 
         public string UserId { get; set; }
 

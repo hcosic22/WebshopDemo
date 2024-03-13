@@ -26,5 +26,8 @@ namespace WebshopDemo.Models
 
         [ForeignKey("ProductId")]
         public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
+
+        [NotMapped]
+        public List<int> Categories { get; set; } = new List<int>();
     }
 }
