@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
+    var categories = String.Join(", ", Model.ProductCategories.Select(c => c.CategoryName));
 }
 
 <h1>Details</h1>
@@ -33,6 +34,12 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Categories)
+        </dt>
+        <dd class="col-sm-10">
+            @categories
         </dd>
     </dl>
 </div>

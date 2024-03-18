@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebshopDemo.Data;
 using WebshopDemo.Extensions;
 
 namespace WebshopDemo.Controllers
 {
+    [Authorize(Roles = "User, Admin")]
     public class CartController : Controller
     {
         private readonly ApplicationDbContext _context;

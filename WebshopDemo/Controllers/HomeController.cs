@@ -8,6 +8,7 @@ using WebshopDemo.Extensions;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebshopDemo.Controllers
 {
@@ -38,15 +39,20 @@ namespace WebshopDemo.Controllers
         public async Task<IActionResult> Product(int? categoryId)
         {
             var products = await _context.Product.ToListAsync();
+            ViewBag.CurrentCategory = "Filter category";
 
             if (categoryId != null) 
             {
                 var productIds = await _context.ProductCategory
-                    .Where(p => p.Id == categoryId)
+                    .Where(p => p.CategoryId == categoryId)
                     .Select(p => p.ProductId)
                     .ToListAsync();
 
                 products = products.Where(p => productIds.Contains(p.Id)).ToList();
+
+                var currentCategory = await _context.Category.FirstOrDefaultAsync(c => c.Id == categoryId);
+
+                ViewBag.CurrentCategory = currentCategory?.Name;
             }
 
             ViewBag.Categories = await _context.Category.Select(c => 
@@ -59,6 +65,7 @@ namespace WebshopDemo.Controllers
             return View(products);
         }
 
+        [Authorize(Roles = "User, Admin")]
         public IActionResult Order(List<string> errors)
         {
             List<CartItem> cart = HttpContext.Session.GetObjectFromJson<List<CartItem>>(SessionKeyName) ?? new List<CartItem>();
@@ -79,6 +86,7 @@ namespace WebshopDemo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User, Admin")]
         public IActionResult CreateOrder(Order order)
         {
             List<CartItem> cart = HttpContext.Session.GetObjectFromJson<List<CartItem>>(SessionKeyName) ?? new List<CartItem>();

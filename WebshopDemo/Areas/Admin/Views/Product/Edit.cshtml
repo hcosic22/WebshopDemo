@@ -34,12 +34,13 @@
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
+            <label asp-for="ProductCategories" class="control-label">Categories</label>
             <div class="form-group">
                 <div class="form-check-inline">
                     @foreach (var category in categories)
                     {
                         <div class="form-check">
-                            <input type="checkbox" value="@category.Value" name="Categories" />
+                            <input type="checkbox" value="@category.Value" name="Categories" checked="@category.Selected" />
                             <label>@category.Text</label>
                         </div>
                     }

@@ -10,7 +10,7 @@
     <div class="col-2">
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Filter by category
+                @ViewBag.CurrentCategory
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 @foreach (var item in ViewBag.Categories)

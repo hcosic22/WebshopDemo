@@ -27,7 +27,16 @@ namespace WebshopDemo.Areas.Admin.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var product = await _context.Product.FirstOrDefaultAsync(o => o.Id == id);
+            var product = await _context.Product
+                .Include(p => p.ProductCategories)
+                .FirstOrDefaultAsync(o => o.Id == id);
+
+            var categories = await _context.Category.ToListAsync();
+
+            foreach (var productCategory in product.ProductCategories)
+            {
+                productCategory.CategoryName = categories.FirstOrDefault(c => c.Id == productCategory.CategoryId)?.Name;
+            }
 
             if (product == null)
             {
@@ -85,12 +94,21 @@ namespace WebshopDemo.Areas.Admin.Controllers
                 return NotFound();
             }
 
+            ViewBag.Categories = await _context.Category.Select(category =>
+                new SelectListItem
+                {
+                    Value = category.Id.ToString(),
+                    Text = category.Name,
+                    Selected  = product.ProductCategories.Select(c => c.CategoryId).Contains(category.Id)
+                }
+                ).ToListAsync();
+
             return View(product);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Quantity,Price")] Product product)
+        public async Task<IActionResult> Edit(int id, Product product)
         {
             if (id != product.Id)
             {
@@ -101,7 +119,27 @@ namespace WebshopDemo.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(product);
+                    var productDb = await _context.Product
+                        .Include(p => p.ProductCategories)
+                        .FirstOrDefaultAsync(p => p.Id == id);
+
+                    productDb?.ProductCategories.Clear();
+                    productDb.Name = product.Name;
+                    productDb.Description = product.Description;
+                    productDb.Price = product.Price;
+                    productDb.Quantity = product.Quantity;
+
+                    foreach (var categoryId in product.Categories)
+                    {
+                        var productCategory = new ProductCategory
+                        {
+                            CategoryId = categoryId
+                        };
+
+                        productDb.ProductCategories.Add(productCategory);
+                    }
+
+                    _context.Update(productDb);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
