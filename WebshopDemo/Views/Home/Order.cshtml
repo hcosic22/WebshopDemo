@@ -29,7 +29,7 @@
                     {
                         <tr>
                             <td>
-                                <a class="btn btn-sm btn-danger" asp-controller="Cart" asp-action="RemoveFromCart" asp-route-productId="@item.Product.Id">Remove</a>
+                                <a class="btn btn-sm btn-danger" asp-controller="Cart" asp-action="RemoveFromCart" asp-route-productId="@item.Product.Id" asp-route-redirectToIndex="false">Remove</a>
                             </td>
                             <td>@item.Product.Name</td>
                             <td>@item.Product.Price.ToString("0.00")€</td>
@@ -114,7 +114,7 @@
                     <textarea class="form-control" name="Message" id="Message" rows="3"></textarea>
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-lg btn-success float-right" value="Place order" />
+                    <input type="submit" class="btn btn-lg btn-success btn-margin-top" value="Place order" />
                 </div>
             </form>
         </div>

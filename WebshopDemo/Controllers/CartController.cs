@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebshopDemo.Data;
 using WebshopDemo.Extensions;
+using WebshopDemo.Models;
 
 namespace WebshopDemo.Controllers
 {
@@ -52,7 +53,7 @@ namespace WebshopDemo.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult RemoveFromCart(int productId) 
+        public IActionResult RemoveFromCart(int productId, bool redirectToIndex) 
         {
             List<CartItem> cart = HttpContext.Session.GetObjectFromJson<List<CartItem>>(SessionKeyName) ?? new List<CartItem>();
 
@@ -65,7 +66,14 @@ namespace WebshopDemo.Controllers
                 HttpContext.Session.SetObjectAsJson(SessionKeyName, cart);
             }
 
-            return RedirectToAction(nameof(Index));
+            if (redirectToIndex)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return RedirectToAction("Order", "Home");
+            }
         }
     }
 }

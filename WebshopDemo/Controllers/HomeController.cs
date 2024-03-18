@@ -28,7 +28,7 @@ namespace WebshopDemo.Controllers
 
         public IActionResult Index(string message)
         {     
-            return View(message);
+            return View(nameof(Index), message);
         }
 
         public IActionResult Privacy()
@@ -81,6 +81,8 @@ namespace WebshopDemo.Controllers
 
             ViewBag.Errors = errors;
 
+            ViewBag.CurrentUserId = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id;
+
             return View(cart);
         }
 
@@ -109,12 +111,14 @@ namespace WebshopDemo.Controllers
                         ProductId = cartItem.Product.Id,
                         Quantity = cartItem.Quantity,
                         Total = cartItem.GetTotal(),
+                        Price = cartItem.Product.Price
                     };
 
                     orderProducts.Add(orderProduct);
                 }
                 
                 order.OrderProducts = orderProducts;
+                order.DateCreated = DateTime.Now;
 
                 _context.Order.Add(order);
                 _context.SaveChanges();

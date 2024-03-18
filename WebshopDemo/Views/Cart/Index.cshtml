@@ -32,7 +32,7 @@ else
             {
                 <tr>
                     <td>
-                        <a class="btn btn-sm btn-danger" asp-action="RemoveFromCart" asp-route-productId="@item.Product.Id">Remove</a>
+                        <a class="btn btn-sm btn-danger" asp-action="RemoveFromCart" asp-route-productId="@item.Product.Id" asp-route-redirectToIndex="true">Remove</a>
                     </td>
                     <td>@item.Product.Name</td>
                     <td>@item.Product.Price.ToString("0.00")€</td>

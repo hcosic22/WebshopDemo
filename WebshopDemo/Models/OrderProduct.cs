@@ -19,7 +19,6 @@ namespace WebshopDemo.Models
         [Column(TypeName = "decimal(9, 2)")]
         public decimal Price { get; set; }
 
-        [NotMapped]
-        public string ProductName { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

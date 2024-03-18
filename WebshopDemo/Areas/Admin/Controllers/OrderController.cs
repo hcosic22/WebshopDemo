@@ -29,16 +29,15 @@ namespace WebshopDemo.Areas.Admin.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var order = await _context.Order.FirstOrDefaultAsync(o => o.Id == id);
+            var order = await _context.Order
+                .Include(p => p.OrderProducts)
+                    .ThenInclude(p => p.Product)
+                .FirstOrDefaultAsync(o => o.Id == id);
 
             if (order == null)
             {
                 return NotFound();
             }
-
-            //var orderProducts = await _context.OrderProduct.Where(p => p.OrderId == id).ToListAsync();
-
-            //order.OrderProducts = orderProducts;
 
             return View(order);
         }
