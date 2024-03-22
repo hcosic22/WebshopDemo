@@ -66,9 +66,11 @@ namespace WebshopDemo.Controllers
         }
 
         [Authorize(Roles = "User, Admin")]
-        public IActionResult Order(List<string> errors)
+        public IActionResult Order(List<string> errors, Order test)
         {
             List<CartItem> cart = HttpContext.Session.GetObjectFromJson<List<CartItem>>(SessionKeyName) ?? new List<CartItem>();
+
+            var order = HttpContext.Session.GetObjectFromJson<Order>("orderData") ?? new Order();
 
             if (cart.Count == 0) 
             {
@@ -83,7 +85,13 @@ namespace WebshopDemo.Controllers
 
             ViewBag.CurrentUserId = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id;
 
-            return View(cart);
+            var data = new
+            {
+                OrderData = order,
+                CartItems = cart,
+            };
+
+            return View(data);
         }
 
         [HttpPost]
@@ -137,7 +145,8 @@ namespace WebshopDemo.Controllers
                     }
                 }
 
-                return RedirectToAction(nameof(Order), new { errors = modelErrors });
+                HttpContext.Session.SetObjectAsJson("orderData", order);
+                return RedirectToAction(nameof(Order), new { errors = modelErrors, test = order });
             }
 
         }

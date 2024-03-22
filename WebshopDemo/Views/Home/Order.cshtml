@@ -1,5 +1,4 @@
 ﻿@using WebshopDemo.Extensions
-@model List<CartItem>
 @{
     ViewData["Title"] = "Order";
 }
@@ -25,7 +24,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.CartItems)
                     {
                         <tr>
                             <td>
@@ -66,35 +65,36 @@
                 <input type="hidden" name="Total" value="@ViewBag.TotalPrice.ToString("0.00")" />
                 <input type="hidden" name="UserId" value="@ViewBag.CurrentUserId" />
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="two-columns">
                         <label for="BillingFirstName">First name *</label>
-                        <input type="text" class="form-control" id="BillingFirstName" name="BillingFirstName" />
+                        <input type="text" required class="form-control" id="BillingFirstName" name="BillingFirstName" value="@Model.OrderData.BillingFirstName" />
+                        <span class="text-danger"></span>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="two-columns">
                         <label for="BillingLastName">Last name *</label>
-                        <input type="text" class="form-control" id="BillingLastName" name="BillingLastName" />
+                        <input type="text" class="form-control" id="BillingLastName" name="BillingLastName" value="@Model.OrderData.BillingLastName" />
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="two-columns">
                         <label for="BillingEmail">Email address *</label>
-                        <input type="text" class="form-control" id="BillingEmail" name="BillingEmail" />
+                        <input type="text" class="form-control" id="BillingEmail" name="BillingEmail" value="@Model.OrderData.BillingEmail" />
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="two-columns">
                         <label for="BillingPhone">Phone *</label>
-                        <input type="text" class="form-control" id="BillingPhone" name="BillingPhone" />
+                        <input type="text" class="form-control" id="BillingPhone" name="BillingPhone" value="@Model.OrderData.BillingPhone" />
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-top: 25px">
                     <label for="BillingAddress">Address *</label>
-                    <input type="text" class="form-control" id="BillingAddress" name="BillingAddress" />
+                    <input type="text" class="form-control" id="BillingAddress" name="BillingAddress" value="@Model.OrderData.BillingAddress" />
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div style="width: 49%">
                         <label for="BillingCity">City *</label>
                         <input type="text" class="form-control" id="BillingCity" name="BillingCity" />
                     </div>
-                    <div class="form-group col-md-4">
+                    <div style="width: 29%">
                         <label for="BillingCountry">Country *</label>
                         <select id="BillingCountry" class="form-control" name="BillingCountry">
                             <option value="Croatia">Croatia</option>
@@ -104,14 +104,14 @@
                             <option value="Hungary">Hungary</option>
                         </select>
                     </div>
-                    <div class="form-group col-md-2">
+                    <div style="width: 19%">
                         <label for="BillingZipCode">Zip code *</label>
-                        <input type="text" class="form-control" id="BillingZipCode" name="BillingZipCode" />
+                        <input type="text" class="form-control" id="BillingZipCode" name="BillingZipCode" value="@Model.OrderData.BillingZipCode" />
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-top: 25px">
                     <label for="Message">Message</label>
-                    <textarea class="form-control" name="Message" id="Message" rows="3"></textarea>
+                    <textarea class="form-control" name="Message" id="Message" rows="3" value="@Model.OrderData.Message"></textarea>
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-lg btn-success btn-margin-top" value="Place order" />
