@@ -32,4 +32,12 @@
     <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Dockerfile" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="..\.dockerignore" Link="wwwroot\.dockerignore" />
+  </ItemGroup>
+
 </Project>
